@@ -150,6 +150,20 @@ namespace OpenVinoSharp
 
 
         /// <summary>
+        /// Add scale preprocess operation. Divide each channel element of input by different specified value.
+        /// </summary>
+        /// <param name="preprocess_input_process_steps">A pointer to ov_preprocess_preprocess_steps_t.</param>
+        /// <param name="values">Scaling values array for each channels</param>
+        /// <param name="value_size">Scaling value size</param>
+        /// <returns>Status code of the operation: OK(0) for success.</returns>
+        [DllImport(dll_extern, EntryPoint = "ov_preprocess_preprocess_steps_scale_multi_channels",
+            CharSet = CharSet.Unicode, CallingConvention = CallingConvention.Cdecl)]
+        public extern static ExceptionStatus ov_preprocess_preprocess_steps_scale_multi_channels(
+            IntPtr preprocess_input_process_steps,
+            ref float values,
+            int value_size);
+
+        /// <summary>
         /// Add mean preprocess operation. Subtract specified value from each element of input.
         /// </summary>
         /// <param name="preprocess_input_process_steps">A pointer to ov_preprocess_preprocess_steps_t.</param>
@@ -160,6 +174,20 @@ namespace OpenVinoSharp
         public extern static ExceptionStatus ov_preprocess_preprocess_steps_mean(
             IntPtr preprocess_input_process_steps, 
             float value);
+
+        /// <summary>
+        /// Add mean preprocess operation. Subtract each channel element of input by different specified value.
+        /// </summary>
+        /// <param name="preprocess_input_process_steps">A pointer to ov_preprocess_preprocess_steps_t.</param>
+        /// <param name="values">Value array to subtract from each element.</param>
+        /// <param name="value_size">Mean value size</param>
+        /// <returns>Status code of the operation: OK(0) for success.</returns>
+        [DllImport(dll_extern, EntryPoint = "ov_preprocess_preprocess_steps_mean_multi_channels",
+            CharSet = CharSet.Unicode, CallingConvention = CallingConvention.Cdecl)]
+        public extern static ExceptionStatus ov_preprocess_preprocess_steps_mean_multi_channels(
+            IntPtr preprocess_input_process_steps,
+            ref float values,
+            int value_size);
 
         /// <summary>
         /// Crop input tensor between begin and end coordinates.

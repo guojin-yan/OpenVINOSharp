@@ -82,6 +82,19 @@ namespace OpenVinoSharp.preprocess
         }
 
         /// <summary>
+        ///  Add scale preprocess operation. Divide each element of input by specified value.
+        /// </summary>
+        /// <param name="value">Scaling value array.</param>
+        /// <returns>Reference to 'this' to allow chaining with other calls in a builder-like manner.</returns>
+        public PreProcessSteps scale(float[] value)
+        {
+            HandleException.handler(NativeMethods.ov_preprocess_preprocess_steps_scale_multi_channels(
+                m_ptr, ref value[0], value.Length));
+
+            return this;
+        }
+
+        /// <summary>
         /// Add mean preprocess operation. Subtract specified value from each element of input.
         /// </summary>
         /// <param name="value"> Value to subtract from each element.</param>
@@ -90,6 +103,18 @@ namespace OpenVinoSharp.preprocess
         {
             HandleException.handler(NativeMethods.ov_preprocess_preprocess_steps_mean(
                 m_ptr, value));
+            return this;
+        }
+
+        /// <summary>
+        /// Add mean preprocess operation. Subtract specified value from each element of input.
+        /// </summary>
+        /// <param name="value"> Value to subtract from each element.</param>
+        /// <returns>Reference to 'this' to allow chaining with other calls in a builder-like manner.</returns>
+        public PreProcessSteps mean(float[] value)
+        {
+            HandleException.handler(NativeMethods.ov_preprocess_preprocess_steps_mean_multi_channels(
+                m_ptr, ref value[0], value.Length));
             return this;
         }
 
