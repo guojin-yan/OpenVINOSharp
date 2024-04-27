@@ -455,6 +455,24 @@ namespace OpenVinoSharp
                NativeMethods.ov_core_get_property(m_ptr, ref c_device[0], ref c_key[0], ref value));
             return Marshal.PtrToStringAnsi(value);
         }
+
+        /// <summary>
+        /// Gets properties related to device behaviour.
+        /// The method extracts information that can be set via the set_property method.
+        /// </summary>
+        /// <param name="device_name">Name of a device to load a model to.</param>
+        /// <param name="key">A header for advanced hardware specific properties for OpenVINO runtime devices.</param>
+        /// <returns>Properties related to device behaviour.</returns>
+        public string get_property(string device_name, string key)
+        {
+            IntPtr value = IntPtr.Zero;
+            sbyte[] c_device = (sbyte[])((Array)System.Text.Encoding.Default.GetBytes(device_name));
+            sbyte[] c_key = (sbyte[])((Array)System.Text.Encoding.Default.GetBytes(key));
+            HandleException.handler(
+               NativeMethods.ov_core_get_property(m_ptr, ref c_device[0], ref c_key[0], ref value));
+            return Marshal.PtrToStringAnsi(value);
+        }
+
         /// <summary>
         /// Returns devices available for inference.
         /// Core objects go over all registered plugins and ask about available devices.
@@ -486,6 +504,12 @@ namespace OpenVinoSharp
             return devices;
         }
 
+        /// <summary>
+        /// Imports a compiled model from the previously exported one.
+        /// </summary>
+        /// <param name="model_path">The local path of the compiled model.</param>
+        /// <param name="device_name">Name of a device to load a model to.</param>
+        /// <returns>A compiled model.</returns>
         public CompiledModel import_model(string model_path, string device_name = "AUTO") 
         {
             IntPtr value = IntPtr.Zero;

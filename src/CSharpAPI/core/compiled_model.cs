@@ -298,7 +298,7 @@ namespace OpenVinoSharp
         /// to understand how the source model is optimized and which kernels, element types, and layouts 
         /// are selected for optimal inference.
         /// </remarks>
-        /// <returns></returns>
+        /// <returns>The model.</returns>
         public Model get_runtime_model()
         { 
             IntPtr model_ptr = IntPtr.Zero;
@@ -330,6 +330,19 @@ namespace OpenVinoSharp
             HandleException.handler(
                 NativeMethods.ov_compiled_model_set_property(m_ptr, property_key, property_value));
         }
+
+        /// <summary>
+        /// Sets properties for the current compiled model.
+        /// </summary>
+        /// <param name="properties">Map of pairs: (property name, property value).</param>
+        public void set_property(KeyValuePair<PropertyKey, string> properties)
+        {
+            IntPtr property_key = Marshal.StringToHGlobalAnsi(properties.Key.ToString());
+            IntPtr property_value = Marshal.StringToHGlobalAnsi(properties.Value);
+            HandleException.handler(
+                NativeMethods.ov_compiled_model_set_property(m_ptr, property_key, property_value));
+        }
+
         /// <summary>
         /// Gets properties for current compiled model
         /// </summary>
@@ -351,7 +364,27 @@ namespace OpenVinoSharp
                 ref property_value_ptr));
             return Marshal.PtrToStringAnsi(property_value_ptr);
         }
-
+        /// <summary>
+        /// Gets properties for current compiled model
+        /// </summary>
+        /// <remarks>
+        /// The method is responsible for extracting information that affects compiled model inference. 
+        /// The list of supported configuration values can be extracted via CompiledModel::get_property 
+        /// with the ov::supported_properties key, but some of these keys cannot be changed dynamically, 
+        /// for example, ov::device::id cannot be changed if a compiled model has already been compiled 
+        /// for a particular device.
+        /// </remarks>
+        /// <param name="property_key">Property key, can be found in openvino/runtime/properties.hpp.</param>
+        /// <returns>Property value.</returns>
+        public string get_property(PropertyKey property_key)
+        {
+            sbyte[] c_property_key = (sbyte[])((Array)System.Text.Encoding.Default.GetBytes(property_key.ToString()));
+            IntPtr property_value_ptr = IntPtr.Zero;
+            HandleException.handler(
+                NativeMethods.ov_compiled_model_get_property(m_ptr, ref c_property_key[0],
+                ref property_value_ptr));
+            return Marshal.PtrToStringAnsi(property_value_ptr);
+        }
         /// <summary>
         /// Returns pointer to device-specific shared context on a remote accelerator device that was used 
         /// to create this CompiledModel.
