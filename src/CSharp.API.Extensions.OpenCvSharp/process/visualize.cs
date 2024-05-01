@@ -33,6 +33,35 @@ namespace OpenVinoSharp.Extensions.process
             }
             return image;
         }
+
+        /// <summary>
+        /// Result drawing
+        /// </summary>
+        /// <param name="result">recognition result</param>
+        /// <param name="image"></param>
+        /// <returns></returns>
+        public static Mat draw_obb_result(ObbResult result, Mat image)
+        {
+            // Draw recognition results on the image
+            for (int i = 0; i < result.count; i++)
+            {
+                Point2f[] points = result.datas[i].box.Points();
+                for (int j = 0; j < 4; j++)
+                {
+                    Cv2.Line(image, (Point)points[j], (Point)points[(j + 1) % 4], new Scalar(255, 100, 200), 2);
+                }
+                Cv2.PutText(image, CocoOption.lables[result.datas[i].index] + "-" + result.datas[i].score.ToString("0.00"),
+                    (Point)points[0], HersheyFonts.HersheySimplex, 0.8, new Scalar(0, 0, 0), 2);
+            }
+            return image;
+        }
+
+        /// <summary>
+        /// Result drawing
+        /// </summary>
+        /// <param name="result">recognition result</param>
+        /// <param name="image"></param>
+        /// <returns></returns>
         public static Mat draw_seg_result(SegResult result, Mat image)
         {
             Mat masked_img = new Mat();
@@ -54,7 +83,7 @@ namespace OpenVinoSharp.Extensions.process
         /// Key point result drawing
         /// </summary>
         /// <param name="pose">Key point data</param>
-        /// <param name="image">image</param>
+        /// <param name="img">image</param>
         public static Mat draw_poses(PoseResult pose, Mat img, float visual_thresh = 0.2f, bool with_box = true)
         {
             Mat image = img.Clone();
