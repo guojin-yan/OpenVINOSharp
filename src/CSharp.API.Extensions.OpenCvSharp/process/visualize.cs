@@ -27,7 +27,7 @@ namespace OpenVinoSharp.Extensions.process
                 Cv2.Rectangle(image, result.datas[i].box, new Scalar(0, 0, 255), 2, LineTypes.Link8);
                 Cv2.Rectangle(image, new Point(result.datas[i].box.TopLeft.X, result.datas[i].box.TopLeft.Y + 30),
                     new Point(result.datas[i].box.BottomRight.X, result.datas[i].box.TopLeft.Y), new Scalar(0, 255, 255), -1);
-                Cv2.PutText(image, CocoOption.lables[result.datas[i].index] + "-" + result.datas[i].score.ToString("0.00"),
+                Cv2.PutText(image, result.datas[i].lable + "-" + result.datas[i].score.ToString("0.00"),
                     new Point(result.datas[i].box.X, result.datas[i].box.Y + 25),
                     HersheyFonts.HersheySimplex, 0.8, new Scalar(0, 0, 0), 2);
             }
@@ -50,7 +50,7 @@ namespace OpenVinoSharp.Extensions.process
                 {
                     Cv2.Line(image, (Point)points[j], (Point)points[(j + 1) % 4], new Scalar(255, 100, 200), 2);
                 }
-                Cv2.PutText(image, CocoOption.lables[result.datas[i].index] + "-" + result.datas[i].score.ToString("0.00"),
+                Cv2.PutText(image, result.datas[i].lable + "-" + result.datas[i].score.ToString("0.00"),
                     (Point)points[0], HersheyFonts.HersheySimplex, 0.8, new Scalar(0, 0, 0), 2);
             }
             return image;
@@ -71,7 +71,7 @@ namespace OpenVinoSharp.Extensions.process
                 Cv2.Rectangle(image, result.datas[i].box, new Scalar(0, 0, 255), 2, LineTypes.Link8);
                 Cv2.Rectangle(image, new Point(result.datas[i].box.TopLeft.X, result.datas[i].box.TopLeft.Y + 30),
                     new Point(result.datas[i].box.BottomRight.X, result.datas[i].box.TopLeft.Y), new Scalar(0, 255, 255), -1);
-                Cv2.PutText(image, CocoOption.lables[result.datas[i].index] + "-" + result.datas[i].score.ToString("0.00"),
+                Cv2.PutText(image, result.datas[i].lable + "-" + result.datas[i].score.ToString("0.00"),
                     new Point(result.datas[i].box.X, result.datas[i].box.Y + 25),
                     HersheyFonts.HersheySimplex, 0.8, new Scalar(0, 0, 0), 2);
                 Cv2.AddWeighted(image, 0.5, result.datas[i].mask, 0.5, 0, masked_img);

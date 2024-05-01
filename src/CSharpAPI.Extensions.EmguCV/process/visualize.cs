@@ -31,7 +31,7 @@ namespace OpenVinoSharp.Extensions.process
                 CvInvoke.Rectangle(image, result.datas[i].box, new MCvScalar(0, 0, 255), 2, LineType.Filled);
                 CvInvoke.Rectangle(image, new Rectangle(new Point(result.datas[i].box.X, result.datas[i].box.Y),
                  new Size(result.datas[i].box.Width, 30)), new MCvScalar(0, 255, 255), -1);
-                CvInvoke.PutText(image, CocoOption.lables[result.datas[i].index] + "-" + result.datas[i].score.ToString("0.00"),
+                CvInvoke.PutText(image, result.datas[i].lable + "-" + result.datas[i].score.ToString("0.00"),
                     new Point(result.datas[i].box.X, result.datas[i].box.Y + 25),
                     FontFace.HersheySimplex, 0.8, new MCvScalar(0, 0, 0), 2);
             }
@@ -55,7 +55,7 @@ namespace OpenVinoSharp.Extensions.process
                 {
                     CvInvoke.Line(image, new Point((int)points[j].X, (int)points[j].Y), new Point((int)points[(j + 1) % 4].X, (int)points[(j + 1) % 4].Y), new MCvScalar(255, 100, 200), 2);
                 }
-                CvInvoke.PutText(image, CocoOption.lables[result.datas[i].index] + "-" + result.datas[i].score.ToString("0.00"),
+                CvInvoke.PutText(image, result.datas[i].lable + "-" + result.datas[i].score.ToString("0.00"),
                     new Point((int)points[0].X, (int)points[0].Y), FontFace.HersheySimplex, 0.8, new MCvScalar(0, 0, 0), 2);
             }
             return image;
@@ -75,7 +75,7 @@ namespace OpenVinoSharp.Extensions.process
                 CvInvoke.Rectangle(image, result.datas[i].box, new MCvScalar(0, 0, 255), 2, LineType.Filled);
                 CvInvoke.Rectangle(image, new Rectangle(new Point(result.datas[i].box.X, result.datas[i].box.Y),
                  new Size(result.datas[i].box.Width, 30)), new MCvScalar(0, 255, 255), -1);
-                CvInvoke.PutText(image, CocoOption.lables[result.datas[i].index] + "-" + result.datas[i].score.ToString("0.00"),
+                CvInvoke.PutText(image, result.datas[i].lable + "-" + result.datas[i].score.ToString("0.00"),
                     new Point(result.datas[i].box.X, result.datas[i].box.Y + 25),
                     FontFace.HersheySimplex, 0.8, new MCvScalar(0, 0, 0), 2);
                 CvInvoke.AddWeighted(masked_img, 1, result.datas[i].mask, 1, 0, masked_img);

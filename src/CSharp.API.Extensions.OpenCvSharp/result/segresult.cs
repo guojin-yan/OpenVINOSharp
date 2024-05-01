@@ -42,7 +42,7 @@ namespace OpenVinoSharp.Extensions.result
         /// <param name="box">Target segmentation recognition result  box.</param>
         /// <param name="mask">Target segmentation recognition result split region.</param>
         public SegData(int index, float score, Rect box, Mat mask)
-            : this(index, null, score, box, mask)
+            : this(index, index.ToString(), score, box, mask)
         { }
         /// <summary>
         /// Update lable.

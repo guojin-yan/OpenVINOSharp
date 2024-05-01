@@ -54,7 +54,7 @@ namespace OpenVinoSharp.Extensions.result
         /// <param name="score">Identification result score.</param>
         /// <param name="box">Identification result box.</param>
         public ObbData(int index, float score, RotatedRect box)
-            : this(index, null, score, box)
+            : this(index, index.ToString(), score, box)
         { }
         /// <summary>
         /// Update lable.

@@ -55,7 +55,7 @@ namespace OpenVinoSharp.Extensions.result
         /// <param name="score">Identification result score.</param>
         /// <param name="box">Identification result box.</param>
         public DetData(int index, float score, Rectangle box) 
-            :this(index, null, score, box) 
+            :this(index, index.ToString(), score, box) 
         { }
         /// <summary>
         /// Update lable.

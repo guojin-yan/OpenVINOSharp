@@ -46,6 +46,7 @@ namespace OpenVinoSharp.Extensions.result
         {
             this.index = index;
             this.score = score;
+            this.lable = index.ToString();
         }
         /// <summary>
         /// Update lable.
