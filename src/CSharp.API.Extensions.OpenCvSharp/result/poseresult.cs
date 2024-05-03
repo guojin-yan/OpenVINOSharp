@@ -136,26 +136,26 @@ namespace OpenVinoSharp.Extensions.result
         /// <param name="lable">Identification result label.</param>
         /// <param name="score">Identification result score.</param>
         /// <param name="box">Identification result box.</param>
-        public void add(int index, string lable, float score, Rect box, PosePoint point)
+        public override void add(int index, string lable, float score, Rect box, PosePoint point)
         {
             PoseData data = new PoseData(index, lable, score, box, point);
             this.add(data);
         }
 
-        public void add(int index, string lable, float score, Rect box, float[] pose_data, float scales)
+        public override void add(int index, string lable, float score, Rect box, float[] pose_data, float scales)
         {
-            PoseData data = new PoseData(index, lable, score, box,  pose_data, scales);
+            PoseData data = new PoseData(index, lable, score, box, pose_data, scales);
             this.add(data);
         }
-        public void add(float score, Rect box, PosePoint point)
+        public override void add(float score, Rect box, PosePoint point)
         {
-            PoseData data = new PoseData( score, box, point);
+            PoseData data = new PoseData(score, box, point);
             this.add(data);
         }
 
-        public void add(float score, Rect box, float[] pose_data, float scales)
+        public override void add(float score, Rect box, float[] pose_data, float scales)
         {
-            PoseData data = new PoseData( score, box, pose_data, scales);
+            PoseData data = new PoseData(score, box, pose_data, scales);
             this.add(data);
         }
 
@@ -163,7 +163,7 @@ namespace OpenVinoSharp.Extensions.result
         /// Sorts the score elements in the entire inference results using the default comparer.
         /// </summary>
         /// <param name="flag"></param>
-        public void sort_by_score(bool flag = true)
+        public override void sort_by_score(bool flag = true)
         {
             if (flag)
                 this.sort((x, y) => x.score.CompareTo(y.score));
@@ -174,7 +174,7 @@ namespace OpenVinoSharp.Extensions.result
         /// Sorts the box elements in the entire inference results using the default comparer.
         /// </summary>
         /// <param name="flag"></param>
-        public void sort_by_bbox(bool flag)
+        public override void sort_by_bbox(bool flag)
         {
             datas.OrderBy(t => t.box.Location.X).ThenBy(t => t.box.Location.Y).ToList();
         }

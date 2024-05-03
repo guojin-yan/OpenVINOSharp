@@ -90,7 +90,7 @@ namespace OpenVinoSharp.Extensions.result
         /// <param name="index">Identification result number.</param>
         /// <param name="score">Identification result score.</param>
         /// <param name="box">Identification result box.</param>
-        public void add(int index, float score)
+        public override void add(int index, float score)
         {
             ClsData data = new ClsData(index, score);
             this.add(data);
@@ -102,7 +102,7 @@ namespace OpenVinoSharp.Extensions.result
         /// <param name="lable">Identification result label.</param>
         /// <param name="score">Identification result score.</param>
         /// <param name="box">Identification result box.</param>
-        public void add(int index, string lable, float score)
+        public override void add(int index, string lable, float score)
         {
             ClsData data = new ClsData(index, lable, score);
             this.add(data);
@@ -113,7 +113,7 @@ namespace OpenVinoSharp.Extensions.result
         /// </summary>
         /// <param name="lables">Lable array.</param>
         /// <returns>DetData class.</returns>
-        public void update_lable(List<string> lables)
+        public override void update_lable(List<string> lables)
         {
             foreach (ClsData data in this.datas)
             {
@@ -125,7 +125,7 @@ namespace OpenVinoSharp.Extensions.result
         /// </summary>
         /// <param name="lables">Lable array.</param>
         /// <returns>DetData class.</returns>
-        public void update_lable(string[] lables)
+        public override void update_lable(string[] lables)
         {
             foreach (ClsData data in this.datas)
             {
@@ -138,7 +138,7 @@ namespace OpenVinoSharp.Extensions.result
         /// <param name="format">A numeric format string.</param>
         public override void print(string format = "0.00")
         {
-            INFO(string.Format("\n Classification Top {0} result : \n",count));
+            INFO(string.Format("\n Classification Top {0} result : \n", count));
             INFO("classid probability");
             INFO("------- -----------");
             foreach (ClsData data in this.datas)

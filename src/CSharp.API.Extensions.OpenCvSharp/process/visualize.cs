@@ -15,11 +15,12 @@ namespace OpenVinoSharp.Extensions.process
         /// <summary>
         /// Result drawing
         /// </summary>
-        /// <param name="result">recognition result</param>
+        /// <param name="bresult">recognition result</param>
         /// <param name="image">image</param>
         /// <returns></returns>
-        public static Mat draw_det_result(DetResult result, Mat image)
+        public static Mat draw_det_result(BaseResult bresult, Mat image)
         {
+            DetResult result = bresult as DetResult;
             // Draw recognition results on the image
             for (int i = 0; i < result.count; i++)
             {
@@ -37,11 +38,12 @@ namespace OpenVinoSharp.Extensions.process
         /// <summary>
         /// Result drawing
         /// </summary>
-        /// <param name="result">recognition result</param>
+        /// <param name="bresult">recognition result</param>
         /// <param name="image"></param>
         /// <returns></returns>
-        public static Mat draw_obb_result(ObbResult result, Mat image)
+        public static Mat draw_obb_result(BaseResult bresult, Mat image)
         {
+            ObbResult result = bresult as ObbResult;
             // Draw recognition results on the image
             for (int i = 0; i < result.count; i++)
             {
@@ -59,11 +61,12 @@ namespace OpenVinoSharp.Extensions.process
         /// <summary>
         /// Result drawing
         /// </summary>
-        /// <param name="result">recognition result</param>
+        /// <param name="bresult">recognition result</param>
         /// <param name="image"></param>
         /// <returns></returns>
-        public static Mat draw_seg_result(SegResult result, Mat image)
+        public static Mat draw_seg_result(BaseResult bresult, Mat image)
         {
+            SegResult result = bresult as SegResult;
             Mat masked_img = new Mat();
             // Draw recognition results on the image
             for (int i = 0; i < result.count; i++)
@@ -82,10 +85,11 @@ namespace OpenVinoSharp.Extensions.process
         /// <summary>
         /// Key point result drawing
         /// </summary>
-        /// <param name="pose">Key point data</param>
+        /// <param name="bresult">Key point data</param>
         /// <param name="img">image</param>
-        public static Mat draw_poses(PoseResult pose, Mat img, float visual_thresh = 0.2f, bool with_box = true)
+        public static Mat draw_poses(BaseResult bresult, Mat img, float visual_thresh = 0.2f, bool with_box = true)
         {
+            PoseResult pose = bresult as PoseResult;
             Mat image = img.Clone();
             // Connection point relationship
             int[,] edgs = new int[17, 2] { { 0, 1 }, { 0, 2}, {1, 3}, {2, 4}, {3, 5}, {4, 6}, {5, 7}, {6, 8},
@@ -142,7 +146,7 @@ namespace OpenVinoSharp.Extensions.process
                 }
             }
             return image;
-           
+
         }
 
     }

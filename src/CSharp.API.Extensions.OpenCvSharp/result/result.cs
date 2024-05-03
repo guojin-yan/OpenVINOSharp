@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OpenCvSharp;
+using System;
 using System.Collections.Generic;
 
 namespace OpenVinoSharp.Extensions.result
@@ -7,12 +8,38 @@ namespace OpenVinoSharp.Extensions.result
     {
         string to_string(string format="0.00");
     }
+    public class BaseResult
+    {
+        public virtual void add(int index, float score, Rect box, Mat mask) { }
+        public virtual void add(int index, string lable, float score, Rect box, Mat mask) { }
+        public virtual void add(int index, string lable, float score, Rect box, PosePoint point) { }
+        public virtual void add(int index, string lable, float score, Rect box, float[] pose_data, float scales) { }
+        public virtual void add(float score, Rect box, PosePoint point) { }
+        public virtual void add(float score, Rect box, float[] pose_data, float scales) { }
+        public virtual void add(int index, float score, Rect box) { }
+        public virtual void add(int index, string lable, float score, Rect box) { }
+        public virtual void add(int index, float score, RotatedRect box) { }
+        public virtual void add(int index, string lable, float score, RotatedRect box) { }
+        public virtual void add(int index, float score) { }
+        public virtual void add(int index, string lable, float score) { }
+        public virtual void sort_by_index(bool flag = true) { }
+        public virtual void sort_by_score(bool flag = true) { }
+        public virtual void sort_by_bbox(bool flag) { }
+        public virtual void update_lable(List<string> lables) { }
+        public virtual void update_lable(string[] lables) { }
+        public virtual void print(string format = "0.00") { }
 
+        /// <summary>
+        /// Get info message.
+        /// </summary>
+        /// <param name="msg"></param>
+        public static void INFO(string msg) => Console.WriteLine("[INFO]  " + msg);
+    }
     /// <summary>
     /// Model inference result class.
     /// </summary>
     /// <typeparam name="T">Model inference result type.</typeparam>
-    public class Result<T>
+    public class Result<T> : BaseResult
     {
         /// <summary>
         /// Model inference results list.

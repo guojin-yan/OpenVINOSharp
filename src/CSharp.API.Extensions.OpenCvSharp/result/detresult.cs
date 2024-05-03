@@ -104,7 +104,7 @@ namespace OpenVinoSharp.Extensions.result
         /// <param name="index">Identification result number.</param>
         /// <param name="score">Identification result score.</param>
         /// <param name="box">Identification result box.</param>
-        public void add(int index, float score, Rect box)
+        public override void add(int index, float score, Rect box)
         {
             DetData data = new DetData(index, score, box);
             this.add(data);
@@ -116,7 +116,7 @@ namespace OpenVinoSharp.Extensions.result
         /// <param name="lable">Identification result label.</param>
         /// <param name="score">Identification result score.</param>
         /// <param name="box">Identification result box.</param>
-        public void add(int index, string lable, float score, Rect box)
+        public override void add(int index, string lable, float score, Rect box)
         {
             DetData data = new DetData(index, lable, score, box);
             this.add(data);
@@ -127,7 +127,7 @@ namespace OpenVinoSharp.Extensions.result
         /// </summary>
         /// <param name="lables">Lable array.</param>
         /// <returns>DetData class.</returns>
-        public void update_lable(List<string> lables)
+        public override void update_lable(List<string> lables)
         {
             foreach (DetData data in this.datas)
             {
@@ -139,7 +139,7 @@ namespace OpenVinoSharp.Extensions.result
         /// </summary>
         /// <param name="lables">Lable array.</param>
         /// <returns>DetData class.</returns>
-        public void update_lable(string[] lables)
+        public override void update_lable(string[] lables)
         {
             foreach (DetData data in this.datas)
             {
@@ -150,7 +150,7 @@ namespace OpenVinoSharp.Extensions.result
         /// Sorts the index elements in the entire inference results using the default comparer.
         /// </summary>
         /// <param name="flag"></param>
-        public void sort_by_index(bool flag = true) 
+        public override void sort_by_index(bool flag = true)
         {
             if (flag)
                 this.sort((x, y) => x.index.CompareTo(y.index));
@@ -161,7 +161,7 @@ namespace OpenVinoSharp.Extensions.result
         /// Sorts the score elements in the entire inference results using the default comparer.
         /// </summary>
         /// <param name="flag"></param>
-        public void sort_by_score(bool flag = true)
+        public override void sort_by_score(bool flag = true)
         {
             if (flag)
                 this.sort((x, y) => x.score.CompareTo(y.score));
@@ -172,7 +172,7 @@ namespace OpenVinoSharp.Extensions.result
         /// Sorts the box elements in the entire inference results using the default comparer.
         /// </summary>
         /// <param name="flag"></param>
-        public void sort_by_bbox(bool flag)
+        public override void sort_by_bbox(bool flag)
         {
             datas.OrderBy(t => t.box.Location.X).ThenBy(t => t.box.Location.Y).ToList();
 
@@ -182,10 +182,10 @@ namespace OpenVinoSharp.Extensions.result
         /// Print the inference results.
         /// </summary>
         /// <param name="format">A numeric format string.</param>
-        public override void print(string format = "0.00") 
+        public override void print(string format = "0.00")
         {
             INFO("Detection results:");
-            foreach (DetData data in this.datas) 
+            foreach (DetData data in this.datas)
             {
                 INFO(data.to_string(format));
             }

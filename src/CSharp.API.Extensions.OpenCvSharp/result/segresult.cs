@@ -92,7 +92,7 @@ namespace OpenVinoSharp.Extensions.result
         /// <param name="score">Target segmentation recognition result  score.</param>
         /// <param name="box">Target segmentation recognition result  box.</param>
         /// <param name="mask">Target segmentation recognition result split region.</param>
-        public void add(int index, float score, Rect box, Mat mask)
+        public override void add(int index, float score, Rect box, Mat mask)
         {
             SegData data = new SegData(index, score, box, mask);
             this.add(data);
@@ -105,7 +105,7 @@ namespace OpenVinoSharp.Extensions.result
         /// <param name="score">Target segmentation recognition result  score.</param>
         /// <param name="box">Target segmentation recognition result  box.</param>
         /// <param name="mask">Target segmentation recognition result split region.</param>
-        public void add(int index, string lable, float score, Rect box, Mat mask)
+        public override void add(int index, string lable, float score, Rect box, Mat mask)
         {
             SegData data = new SegData(index, lable, score, box, mask);
             this.add(data);
@@ -114,7 +114,7 @@ namespace OpenVinoSharp.Extensions.result
         /// Sorts the index elements in the entire inference results using the default comparer.
         /// </summary>
         /// <param name="flag"></param>
-        public void sort_by_index(bool flag = true)
+        public override void sort_by_index(bool flag = true)
         {
             if (flag)
                 this.sort((x, y) => x.index.CompareTo(y.index));
@@ -125,7 +125,7 @@ namespace OpenVinoSharp.Extensions.result
         /// Sorts the score elements in the entire inference results using the default comparer.
         /// </summary>
         /// <param name="flag"></param>
-        public void sort_by_score(bool flag = true)
+        public override void sort_by_score(bool flag = true)
         {
             if (flag)
                 this.sort((x, y) => x.score.CompareTo(y.score));
@@ -136,12 +136,35 @@ namespace OpenVinoSharp.Extensions.result
         /// Sorts the box elements in the entire inference results using the default comparer.
         /// </summary>
         /// <param name="flag"></param>
-        public void sort_by_bbox(bool flag)
+        public override void sort_by_bbox(bool flag)
         {
             datas.OrderBy(t => t.box.Location.X).ThenBy(t => t.box.Location.Y).ToList();
 
         }
-
+        /// <summary>
+        /// Update lable.
+        /// </summary>
+        /// <param name="lables">Lable array.</param>
+        /// <returns>DetData class.</returns>
+        public override void update_lable(List<string> lables)
+        {
+            foreach (SegData data in this.datas)
+            {
+                data.update_lable(lables);
+            }
+        }
+        /// <summary>
+        /// Update lable.
+        /// </summary>
+        /// <param name="lables">Lable array.</param>
+        /// <returns>DetData class.</returns>
+        public override void update_lable(string[] lables)
+        {
+            foreach (SegData data in this.datas)
+            {
+                data.update_lable(lables);
+            }
+        }
         /// <summary>
         /// Print the inference results.
         /// </summary>
