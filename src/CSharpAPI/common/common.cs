@@ -153,9 +153,21 @@ namespace OpenVinoSharp
         /// </summary>
         U1,
         /// <summary>
+        /// u2 element type
+        /// </summary>
+        U2,
+        /// <summary>
+        /// u3 element type
+        /// </summary>
+        U3,
+        /// <summary>
         /// u4 element type
         /// </summary>
         U4,
+        /// <summary>
+        /// u6 element type
+        /// </summary>
+        U6,
         /// <summary>
         /// u8 element type
         /// </summary>
@@ -172,6 +184,30 @@ namespace OpenVinoSharp
         /// u64 element type
         /// </summary>
         U64,
+        /// <summary>
+        /// nf4 element type
+        /// </summary>
+        NF4,
+        /// <summary>
+        /// f8e4m3 element type
+        /// </summary>
+        F8E4M3,
+        /// <summary>
+        /// f8e5m2 element type
+        /// </summary>
+        F8E5M3,
+        /// <summary>
+        /// string element type
+        /// </summary>
+        STRING,
+        /// <summary>
+        /// f4e2m1 element type
+        /// </summary>
+        F4E2M1,
+        /// <summary>
+        /// f8e8m0 element type
+        /// </summary>
+        F8E8M0,
     };
 
 }
