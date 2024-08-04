@@ -63,6 +63,27 @@ namespace OpenVinoSharp.Tests
             Assert.IsTrue(model.Ptr != IntPtr.Zero);
         }
 
+
+        [TestMethod()]
+        public void read_model_test2()
+        {
+            byte[] data = content_from_file(get_model_bin_file_name());
+
+            Shape shape = new Shape(new List<long> { 1, data.Length });
+            Tensor tensor = new Tensor(new element.Type(element.Type_t.u8), shape, data);
+
+            FileStream fs = new FileStream(get_model_xml_file_name(), FileMode.Open, FileAccess.Read);
+            long len = fs.Seek(0, SeekOrigin.End);
+            fs.Seek(0, SeekOrigin.Begin);
+            byte[] xml_data = new byte[len + 1];
+            fs.Read(xml_data, 0, (int)len);
+            fs.Close();
+
+            Core core = new Core();
+            Assert.IsTrue(core.Ptr != IntPtr.Zero);
+            Model model = core.read_model(xml_data, tensor);
+            Assert.IsTrue(model.Ptr != IntPtr.Zero);
+        }
         [TestMethod()]
         public void compile_model_test()
         {
@@ -84,7 +105,7 @@ namespace OpenVinoSharp.Tests
             Assert.IsTrue(model.Ptr != IntPtr.Zero);
 
             Dictionary<string, string> latency = new Dictionary<string, string>();
-            latency.Add("PERFORMANCE_HINT", "1");
+            latency.Add("NUM_STREAMS", "2");
 
             CompiledModel compiled = core.compile_model(model, get_device(), latency);
             Assert.IsTrue(compiled.Ptr != IntPtr.Zero);
@@ -231,5 +252,7 @@ namespace OpenVinoSharp.Tests
         public void import_modelTest()
         {
         }
+
+
     }
 }
