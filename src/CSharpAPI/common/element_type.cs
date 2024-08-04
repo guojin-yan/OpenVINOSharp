@@ -94,9 +94,21 @@ namespace OpenVinoSharp
             /// </summary>
             u1,
             /// <summary>
+            /// u2 element type
+            /// </summary>
+            u2,
+            /// <summary>
+            /// u3 element type
+            /// </summary>
+            u3,
+            /// <summary>
             /// u4 element type
             /// </summary>
             u4,
+            /// <summary>
+            /// u6 element type
+            /// </summary>
+            u6,
             /// <summary>
             ///  u8 element type
             /// </summary>
