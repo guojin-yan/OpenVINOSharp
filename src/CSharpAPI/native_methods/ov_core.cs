@@ -119,19 +119,13 @@ namespace OpenVinoSharp
             ref sbyte bin_path, 
             ref IntPtr model);
 
-        [DllImport(dll_extern, EntryPoint = "ov_core_read_model_from_memory_buffer",
-            CharSet = CharSet.Unicode, CallingConvention = CallingConvention.Cdecl)]
-        public extern static ExceptionStatus ov_core_read_model_from_memory_buffer(IntPtr core,
-            ref byte model_path,
-            ulong str_size,
-            IntPtr weights,
-            ref IntPtr model);
-
         /// <summary>
         /// Reads models from IR / ONNX / PDPD / TF / TFLite formats.
         /// </summary>
         /// <param name="core">A pointer to the ie_core_t instance.</param>
-        /// <param name="model_path">Path to a model.</param>
+        /// <param name="xml_model_file_byte">String with a model in IR / ONNX / PDPD / TF / TFLite format, 
+        /// support model string containing several null chars.</param>
+        /// <param name="str_size">The length of model string.</param>
         /// <param name="weights">Shared pointer to a constant tensor with weights.</param>
         /// <param name="model">A pointer to the newly created model.</param>
         /// <remarks>
@@ -143,11 +137,12 @@ namespace OpenVinoSharp
         /// since the model constant data will point to an invalid memory.
         /// </note>
         /// <returns>Status code of the operation: OK(0) for success.</returns>
-        [DllImport(dll_extern, EntryPoint = "ov_core_read_model_from_memory", 
+        [DllImport(dll_extern, EntryPoint = "ov_core_read_model_from_memory_buffer",
             CharSet = CharSet.Unicode, CallingConvention = CallingConvention.Cdecl)]
-        public extern static ExceptionStatus ov_core_read_model_from_memory(IntPtr core,
-            ref byte model_path, 
-            IntPtr weights, 
+        public extern static ExceptionStatus ov_core_read_model_from_memory_buffer(IntPtr core,
+            ref byte xml_model_file_byte,
+            ulong str_size,
+            IntPtr weights,
             ref IntPtr model);
 
         /// <summary>
