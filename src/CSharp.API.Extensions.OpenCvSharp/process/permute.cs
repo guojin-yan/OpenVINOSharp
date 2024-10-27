@@ -28,6 +28,7 @@ namespace OpenVinoSharp.Extensions.process
                     using Mat dest = new(rh, rw, MatType.CV_32FC1, resultPtr + i * rh * rw * sizeof(float));
                     Cv2.ExtractChannel(im, dest, i);
                 }
+                resultHandle.Free();
             }
             finally
             {
@@ -60,6 +61,7 @@ namespace OpenVinoSharp.Extensions.process
                         Cv2.ExtractChannel(imgs[j], dest, i);
                     }
                 }
+                resultHandle.Free();
             }
             finally
             {
